@@ -15,18 +15,20 @@ public class WebCrawlerTest {
 				+ "<link href=\"https://www.stylesheets.com\"/>"
 				+ "</head><body>"
 				+ "<script src=\"https://www.javascript.com\"></script>"
-				+ "<img src=\"https://www.image.com\"/>"
-				+ "</body></html>";
+				+ "<img src=\"https://www.image.com\"/>" + "</body></html>";
 		Document doc = Jsoup.parse(html);
 		WebCrawler crawler = new WebCrawler(doc);
 		ArrayList<String> staticAssets = crawler.getUrlsOfStaticAssets(doc);
-		assertTrue("image url present", staticAssets.contains("https://www.image.com"));
-		assertTrue("javascript url present", staticAssets.contains("https://www.javascript.com"));
-		assertTrue("stylesheet url present", staticAssets.contains("https://www.stylesheets.com"));
+		assertTrue("image url present",
+				staticAssets.contains("https://www.image.com"));
+		assertTrue("javascript url present",
+				staticAssets.contains("https://www.javascript.com"));
+		assertTrue("stylesheet url present",
+				staticAssets.contains("https://www.stylesheets.com"));
 	}
-	
+
 	@Test
-	public void testEnqueueAllReachableLinks(){
+	public void testEnqueueAllReachableLinks() {
 		String html = "<html><head>"
 				+ "<link href=\"https://www.stylesheets.com\"/>"
 				+ "</head><body>"
@@ -45,9 +47,9 @@ public class WebCrawlerTest {
 		assertFalse("https://www.facebook.com enqueued",
 				crawler.isExplored("https://www.facebook.com"));
 	}
-	
+
 	@Test
-	public void testEndWithSlash(){
+	public void testEndWithSlash() {
 		String html = "<html><head></head><body></body></html>";
 		Document doc = Jsoup.parse(html);
 		WebCrawler crawler = new WebCrawler(doc);
